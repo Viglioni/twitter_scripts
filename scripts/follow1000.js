@@ -77,24 +77,17 @@ function getFollowList(friends, big_list, enemy_list, max){
  * @param max (int): initial array size of @param to_be_followed
  * @return (arr): Array of IDs of maximum size @param max of people to be followed
 */
-function followOne(to_be_followed, waiting_time, max){
-    console.log("Waiting " + waiting_time + " seconds.");
-    console.log("Iteration: " + (max - to_be_followed.length));
-    if(to_be_followed.length === 0){
-        console.log("Script finished!");
+function followN(waiting_time, accounts){
+    if (accounts.length === 1){
+      followOne(waiting_time, accounts.pop())
     }
     else {
-        setTimeout( () => {
-            console.log(to_be_followed.length);
-            let person = to_be_followed.pop();
-            Connections.follow( person);
-            followOne(to_be_followed, (Math.floor(Math.random()*100)), max);
-        }, waiting_time*1000);
+      let person = accounts.pop();
+      followOne(waiting_time, person)
+      followN(waiting_time, accounts);
     }
 }
 
-
-
-
-
-
+function followOne(waiting_time, person){
+   setTimeout( () => { Connections.follow( person); }, waiting_time);
+}
