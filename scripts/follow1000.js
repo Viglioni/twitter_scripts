@@ -28,7 +28,7 @@ var IdList = require("../modules/id_list");
 const ENEMY_LIST = [];
 
 // Max number of people you want to follow, default is 1000
-const MAX = 10;
+const MAX = 1000;
 
 // The person you want to follow zir followers, e.g. "viglionilaura"
 const TARGET = "";
@@ -54,7 +54,7 @@ function follow1000(ENEMY_LIST, MAX, TARGET) {
         .then( ([friends, target_followers, enemy_list]) => {
             console.log(friends.length);
             let to_be_followed = getFollowList(friends , target_followers, enemy_list, MAX);
-            followOne( to_be_followed, 0, to_be_followed.length);
+            followPeople( to_be_followed, 0, to_be_followed.length);
         });    
 }
 
@@ -77,7 +77,7 @@ function getFollowList(friends, big_list, enemy_list, max){
  * @param max (int): initial array size of @param to_be_followed
  * @return (arr): Array of IDs of maximum size @param max of people to be followed
 */
-function followOne(to_be_followed, waiting_time, max){
+function followPeople(to_be_followed, waiting_time, max){
     console.log("Waiting " + waiting_time + " seconds.");
     console.log("Iteration: " + (max - to_be_followed.length));
     if(to_be_followed.length === 0){
@@ -88,7 +88,7 @@ function followOne(to_be_followed, waiting_time, max){
             console.log(to_be_followed.length);
             let person = to_be_followed.pop();
             Connections.follow( person);
-            followOne(to_be_followed, (Math.floor(Math.random()*100)), max);
+            followPeople(to_be_followed, (Math.floor(Math.random()*100)), max);
         }, waiting_time*1000);
     }
 }
