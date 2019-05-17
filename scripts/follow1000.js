@@ -11,10 +11,10 @@
  * > lib 'twit' https://github.com/ttezel/twit *
  * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/* * * * * * * * *  * * * * * * * *
- * usage:                             *
- *    $ node follow1000.js    *
- * * * * * * * * * * * * * * * *  */
+/* * * * * * * * * * * * * * * * * * * * * * * *
+ * usage:                                               *
+ *    $ node follow1000.js "user" MAX   *
+ * * * * * * * * * * * * * * * * * * * * * * * */
 
 console.log("The script started\n\n");
 
@@ -25,18 +25,24 @@ var Connections = require("../modules/connections");
 var IdList = require("../modules/id_list");
 
 // People you do not want to follow
-const ENEMY_LIST = [];
+var {enemies} = require("../modules/people");
+
 
 // Max number of people you want to follow, default is 1000
-const MAX = 1000;
-
-// The person you want to follow zir followers, e.g. "viglionilaura"
-const TARGET = "";
+const MAX = process.argv[4] || 1000;
 
 
 // execution
-follow1000(ENEMY_LIST, MAX, TARGET);
-
+if (process.argv.length === 2) {
+    console.error('Expected at least one argument!');
+    console.log('$ node follow1000.js "viglionilaura"');
+    console.log('$ node follow1000.js "viglionilaura" 300');
+  process.exit(1);
+}
+else{
+    const TARGET = process.argv[2];
+    follow1000(enemies, MAX, TARGET);
+}
 
 /******** Methods ********/
 /** follow1000

@@ -27,9 +27,10 @@ const keys = require("../modules/secret_keys");
 var T = new Twit(keys);
 var Connections = require("../modules/connections");
 var IdList = require("../modules/id_list");
+var {friends} = require("../modules/people");
 
 // People you do not want to unfollow
-const friend_list = [];
+const friend_list = friends;
 
 
 

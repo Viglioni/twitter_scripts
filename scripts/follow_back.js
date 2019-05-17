@@ -26,9 +26,10 @@ const keys = require("../modules/secret_keys");
 var T = new Twit(keys);
 var Connections = require("../modules/connections");
 var IdList = require("../modules/id_list");
+var {enemies} = require("../modules/people");
 
 // People you do not want to follow
-const enemy_list = [];
+const enemy_list = enemies;
 
 
 
